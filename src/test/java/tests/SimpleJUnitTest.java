@@ -1,3 +1,5 @@
+package tests;
+
 import org.junit.jupiter.api.*;
 
 //These items are required for successfulSearchTest only
