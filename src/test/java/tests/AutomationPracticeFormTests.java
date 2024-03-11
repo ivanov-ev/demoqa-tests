@@ -1,19 +1,11 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.SelenideElement;
-import com.codeborne.selenide.commands.Find;
-import com.codeborne.selenide.selector.ByText;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
 
-import static com.codeborne.selenide.Condition.name;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -67,15 +59,11 @@ public class AutomationPracticeFormTests {
         //Opens the month view and selects a day
         $(".react-datepicker__day--015").click();
 
-
-
-        //Subjects - Select English, Select Computer science
-        //$("#react-select-2-option-0").click();
-        //$("#subjectsContainer").click();
-        //$("#subjects-auto-complete__option").
-        //        $("#mytext").click();
-        //$(byText("English")).click();
-
+        //Field that suggests selections after entering some text
+        $("#subjectsInput").click();
+        $("#subjectsInput").setValue("English").pressEnter();
+        $("#subjectsInput").click();
+        $("#subjectsInput").setValue("Computer Science").pressEnter();
 
         //Checks the boxes for hobbies
         $(byText("Sports")).click();
@@ -103,7 +91,8 @@ public class AutomationPracticeFormTests {
         $(".table-responsive").shouldHave(text("Male"));
         $(".table-responsive").shouldHave(text("4959999999"));
         $(".table-responsive").shouldHave(text("15 August,1985"));
-        //$(".table-responsive").shouldHave(text("subject go here"));
+        $(".table-responsive").shouldHave(text("English"));
+        $(".table-responsive").shouldHave(text("Computer Science"));
         $(".table-responsive").shouldHave(text("Sports"));
         $(".table-responsive").shouldHave(text("Music"));
         $(".table-responsive").shouldHave(text("SampleImage.png"));
