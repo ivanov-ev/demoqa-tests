@@ -39,85 +39,77 @@ public class AutomationPracticeFormTests {
         closeWebDriver();
     }
 
-    //The test may require scrolling down or making the browser window size more than the actual screen size
+    //A success way to fill out all the fields on the automation-practice-form
     @Test
     void fillFormTest() {
         open("/automation-practice-form");
         //For classes, use a dot. For ids, use #.
+
         $("#firstName").setValue("John");
+
         $("#lastName").setValue("Doe");
+
         $("#userEmail").setValue("john.doe@example.com");
 
-        //Gender - Choose Male
-        //SelenideElement radioButton = $(".custom-control-label");
-        //radioButton.click();
-        //$("#gender-radio-2").selectRadio("gender-radio-2");
+        $(byText("Male")).click();
 
+        $("#userNumber").setValue("4959999999");
 
+        //Opens the date picker
+        $("#dateOfBirthInput").click();
+        //Open the year drop-down list and selects a year
+        $(".react-datepicker__year-select").click();
+        $(byText("1985")).click();
+        //Open the month drop-down list and selects a month
+        //Selecting a day from the month view may be unstable because the month view can contain the same number twice (e.g. 29 July and 29 August)
+        $(".react-datepicker__month-select").click();
+        $(byText("August")).click();
+        //Opens the month view and selects a day
+        $(".react-datepicker__day--015").click();
 
-        $("#userNumber").setValue("12223334455");
-
-
-        //Date of birth - Change month, Change year, Change date.
 
 
         //Subjects - Select English, Select Computer science
+        //$("#react-select-2-option-0").click();
+        //$("#subjectsContainer").click();
+        //$("#subjects-auto-complete__option").
+        //        $("#mytext").click();
+        //$(byText("English")).click();
 
 
+        //Checks the boxes for hobbies
+        $(byText("Sports")).click();
+        $(byText("Music")).click();
 
-
-
-        //$("[id=hobbies-checkbox-1]").setSelected(true);
-        //$("#hobbies-checkbox-3").click();
-        //Hobbies - Select Sports, Select Music
-        $(".custom-control-inline").selectRadio("hobbies-checkbox-1");
-
-
-
+        //Not sure whether this works for a real file upload, especially a large one
         $("#uploadPicture").uploadFile(new File("src\\test\\java\\tests\\SampleImage.png"));
+
+        //Multi-line text box
         $("#currentAddress").setValue("35, Current Street, \nCurrent Country"); //multi-line = \n
 
-
-        //State and City - Select Uttar Pradesh, Select Agra
-
-
-
-        //$("[id=stateCity-wrapper]").selectOption(1);
+        //Selects values from two drop-down lists
         $(byText("Select State")).click();
+        $(byText("Rajasthan")).click();
+        $(byText("Select City")).click();
+        $(byText("Jaiselmer")).click();
 
-
-
-        //$().scrollIntoView().click()
-
-
-/*
-        public class DropdownExample {
-            public static void main(String[] args) {
-                // Open the webpage with the dropdown list
-                open("https://www.example.com");
-
-                // Find the dropdown element by its selector
-                $("#dropdown").selectOption("Option 1");
-
-                // Verify that the selected option is as expected
-                $("#dropdown").shouldHave(text("Option 1"));
-            }
-        }
-*/
-
-
-
+        //Submits the form
         $("#submit").click();
 
+        //Checks the final results in the table
+        $(".table-responsive").shouldHave(text("John"));
+        $(".table-responsive").shouldHave(text("Doe"));
+        $(".table-responsive").shouldHave(text("john.doe@example.com"));
+        $(".table-responsive").shouldHave(text("Male"));
+        $(".table-responsive").shouldHave(text("4959999999"));
+        $(".table-responsive").shouldHave(text("15 August,1985"));
+        //$(".table-responsive").shouldHave(text("subject go here"));
+        $(".table-responsive").shouldHave(text("Sports"));
+        $(".table-responsive").shouldHave(text("Music"));
+        $(".table-responsive").shouldHave(text("SampleImage.png"));
+        $(".table-responsive").shouldHave(text("35, Current Street, \nCurrent Country"));
+        $(".table-responsive").shouldHave(text("Rajasthan"));
+        $(".table-responsive").shouldHave(text("Jaiselmer"));
 
-
-
-
-        //Select #output and then select one of its sub-elements
-        //$("#output #name").shouldHave(text("John Doe"));
-        //$("#output #email").shouldHave(text("john.doe@example.com"));
-        //$("#output #currentAddress").shouldHave(text("35, Current Street, Current Country"));
-        //("#output #permanentAddress").shouldHave(text("20, Permanent Street, Permanent Country"));
-        //click Close and check the window is closed
     }
 }
