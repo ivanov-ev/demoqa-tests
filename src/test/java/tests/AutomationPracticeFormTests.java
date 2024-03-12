@@ -4,8 +4,6 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
-
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
@@ -70,7 +68,7 @@ public class AutomationPracticeFormTests {
         $(byText("Music")).click();
 
         //Not sure whether this works for a real file upload, especially a large one
-        $("#uploadPicture").uploadFile(new File("src\\test\\java\\tests\\SampleImage.png"));
+        $("#uploadPicture").uploadFromClasspath("SampleImage.png");
 
         //Multi-line text box
         $("#currentAddress").setValue("35, Current Street, \nCurrent Country"); //multi-line = \n
