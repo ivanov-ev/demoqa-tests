@@ -13,17 +13,18 @@ import static com.codeborne.selenide.Selenide.$;
 public class RegistrationPage {
 
     private final SelenideElement userForm = $("#userForm");
-    public final SelenideElement firstNameInput = $("#firstName");
-    public final SelenideElement lastNameInput = $("#lastName");
+    private final SelenideElement firstNameInput = $("#firstName");
+    private final SelenideElement lastNameInput = $("#lastName");
     private final SelenideElement emailInput = $("#userEmail");
-    public final SelenideElement maleGenderInput = $(byText("Male"));
-    public final SelenideElement femaleGenderInput = $(byText("Female"));
-    public final SelenideElement phoneNumberInput = $("#userNumber");
+    private final SelenideElement maleGenderInput = $(byText("Male"));
+    private final SelenideElement femaleGenderInput = $(byText("Female"));
+    private final SelenideElement phoneNumberInput = $("#userNumber");
     private final SelenideElement calendarInput = $("#dateOfBirthInput");
 
     private final SelenideElement subjectInput = $("#subjectsInput");
 
-    private final SelenideElement hobbySportsInput = $(byText("Sports")),
+    private final SelenideElement
+            hobbySportsInput = $(byText("Sports")),
             hobbyReadingInput = $(byText("Reading")),
             hobbyMusicInput = $(byText("Music"));
 
@@ -36,6 +37,7 @@ public class RegistrationPage {
 
     private final SelenideElement submitButton = $("#submit");
 
+    //Init components
     CalendarComponent calendarComponent = new CalendarComponent();
 
     TableComponent tableComponent = new TableComponent();
@@ -55,7 +57,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage checkUserFormIsValidated() {
-        userForm.shouldHave(attribute("class", "was-validated"));
+        userForm.shouldHave(attribute("class", "was-validated")); //the form receives this attribute after submitting the form
         return this;
     }
 
@@ -75,6 +77,11 @@ public class RegistrationPage {
     //May be improved to pass one of three radio buttons as a variable
     public RegistrationPage setMaleGender () {
         maleGenderInput.click();
+        return this;
+    }
+
+    public RegistrationPage setFemaleGender () {
+        femaleGenderInput.click();
         return this;
     }
 

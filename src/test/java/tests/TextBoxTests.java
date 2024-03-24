@@ -3,8 +3,8 @@ package tests;
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
+import pages.TextBoxPage;
 
-import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 
 // ====================================
@@ -27,20 +27,20 @@ public class TextBoxTests {
     void tearDown() {
         closeWebDriver();
     }
+
+    TextBoxPage textBoxPage = new TextBoxPage();
+
     @Test
     void fillFormTest() {
-        open("/text-box");
-        //For classes, use a dot. For ids, use #.
-        $("#userName").setValue("John Doe");
-        $("#userEmail").setValue("john.doe@example.com");
-        $("#currentAddress").setValue("35, Current Street, Current Country");
-        $("#permanentAddress").setValue("20, Permanent Street, Permanent Country");
-        $("#submit").click();
-
-        //Select #output and then select one of its sub-elements
-        $("#output #name").shouldHave(text("John Doe"));
-        $("#output #email").shouldHave(text("john.doe@example.com"));
-        $("#output #currentAddress").shouldHave(text("35, Current Street, Current Country"));
-        $("#output #permanentAddress").shouldHave(text("20, Permanent Street, Permanent Country"));
+        textBoxPage.openPage()
+                .setUserName("John Doe")
+                .setUserEmail("john.doe@example.com")
+                .setCurrentAddress("35, Current Street, Current Country")
+                .setPermanentAddress("20, Permanent Street, Permanent Country")
+                .submitForm();
+       textBoxPage.checkName("John Doe")
+               .checkEmail("john.doe@example.com")
+               .checkCurrentAddress("35, Current Street, Current Country")
+               .checkPermanentAddress("20, Permanent Street, Permanent Country");
     }
 }
