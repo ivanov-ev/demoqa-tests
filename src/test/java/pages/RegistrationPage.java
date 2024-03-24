@@ -1,7 +1,6 @@
 package pages;
 
 import pages.components.*;
-
 import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponent;
 
@@ -9,6 +8,10 @@ import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
+
+// ==========================================================
+//PAGE OBJECT FOR https://demoqa.com/automation-practice-form
+// ==========================================================
 
 public class RegistrationPage {
 
@@ -20,45 +23,25 @@ public class RegistrationPage {
     private final SelenideElement femaleGenderInput = $(byText("Female"));
     private final SelenideElement phoneNumberInput = $("#userNumber");
     private final SelenideElement calendarInput = $("#dateOfBirthInput");
-
     private final SelenideElement subjectInput = $("#subjectsInput");
-
     private final SelenideElement
             hobbySportsInput = $(byText("Sports")),
             hobbyReadingInput = $(byText("Reading")),
             hobbyMusicInput = $(byText("Music"));
-
     private final SelenideElement uploadPictureInput = $("#uploadPicture");
-
     private final SelenideElement addressInput = $("#currentAddress");
-
     private final SelenideElement stateInput = $(byText("Select State"));
     private final SelenideElement cityInput = $(byText("Select City"));
-
     private final SelenideElement submitButton = $("#submit");
 
     //Init components
     CalendarComponent calendarComponent = new CalendarComponent();
-
     TableComponent tableComponent = new TableComponent();
 
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
 		return this;
-    }
-
-    public RegistrationPage requiredAttributeChecker() {
-        firstNameInput.shouldHave(attribute("required"));
-        lastNameInput.shouldHave(attribute("required"));
-        maleGenderInput.preceding(0).shouldHave(attribute("required"));
-        phoneNumberInput.shouldHave(attribute("required"));
-        return this;
-    }
-
-    public RegistrationPage checkUserFormIsValidated() {
-        userForm.shouldHave(attribute("class", "was-validated")); //the form receives this attribute after submitting the form
-        return this;
     }
 
     public RegistrationPage setFirstName (String value) {
@@ -74,7 +57,6 @@ public class RegistrationPage {
         return this;
     }
 
-    //May be improved to pass one of three radio buttons as a variable
     public RegistrationPage setMaleGender () {
         maleGenderInput.click();
         return this;
@@ -148,6 +130,19 @@ public class RegistrationPage {
 
     public RegistrationPage checkTableResults (String value) {
         tableComponent.checkTable(value);
+        return this;
+    }
+
+    public RegistrationPage requiredAttributeChecker() {
+        firstNameInput.shouldHave(attribute("required"));
+        lastNameInput.shouldHave(attribute("required"));
+        maleGenderInput.preceding(0).shouldHave(attribute("required"));
+        phoneNumberInput.shouldHave(attribute("required"));
+        return this;
+    }
+
+    public RegistrationPage checkUserFormIsValidated() {
+        userForm.shouldHave(attribute("class", "was-validated")); //the form receives this attribute after submitting the form
         return this;
     }
 }

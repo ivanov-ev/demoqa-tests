@@ -6,6 +6,9 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
 
+// ==========================================
+//PAGE OBJECT FOR https://demoqa.com/text-box
+// ==========================================
 
 public class TextBoxPage {
 
@@ -52,7 +55,7 @@ public class TextBoxPage {
     }
 
     public TextBoxPage checkName (String value) {
-            outputName.shouldHave(text(value));
+        outputName.shouldHave(text(value));
         return this;
     }
     public TextBoxPage checkEmail (String value) {

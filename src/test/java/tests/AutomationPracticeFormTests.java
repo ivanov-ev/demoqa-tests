@@ -1,33 +1,13 @@
 package tests;
 
 import pages.RegistrationPage;
-
-import com.codeborne.selenide.Configuration;
-import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
-
-import static com.codeborne.selenide.Selenide.*;
 
 // ====================================================
 //TESTS FOR https://demoqa.com/automation-practice-form
 // ====================================================
-public class AutomationPracticeFormTests {
 
-    @BeforeAll
-    static void setup() {
-        //pay attention to the trailing slash, because it concatenates with open() and may result in 2 slashes
-        Configuration.baseUrl = "https://demoqa.com";
-        Configuration.pageLoadStrategy= "eager";
-        //Configuration.browser = "Chrome";
-        Configuration.browserSize = "1920x1200";
-        Configuration.timeout = 5000; //5 sec; default is 4 sec
-
-    }
-
-    @AfterEach
-    void tearDown() {
-        closeWebDriver();
-    }
+public class AutomationPracticeFormTests extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
 
