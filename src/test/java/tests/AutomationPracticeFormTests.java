@@ -1,13 +1,11 @@
 package tests;
 
+import pages.RegistrationPage;
+
 import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.attribute;
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byName;
-import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
 // ====================================================
@@ -31,119 +29,62 @@ public class AutomationPracticeFormTests {
         closeWebDriver();
     }
 
+    RegistrationPage registrationPage = new RegistrationPage();
+
     //A success way to fill out all the fields on the automation-practice-form
     @Test
     void fillFormTest() {
-        open("/automation-practice-form");
-        //For classes, use a dot. For ids, use #.
-
-        $("#firstName").setValue("John");
-
-        $("#lastName").setValue("Doe");
-
-        $("#userEmail").setValue("john.doe@example.com");
-
-        $(byText("Male")).click();
-
-        $("#userNumber").setValue("4959999999");
-
-        //Opens the date picker
-        $("#dateOfBirthInput").click();
-        //Open the year drop-down list and selects a year
-        $(".react-datepicker__year-select").click();
-        $(byText("1985")).click();
-        //Open the month drop-down list and selects a month
-        //Selecting a day from the month view may be unstable because the month view can contain the same number twice (e.g. 29 July and 29 August)
-        $(".react-datepicker__month-select").click();
-        $(byText("August")).click();
-        //Opens the month view and selects a day
-        $(".react-datepicker__day--015").click();
-
-        //Field that suggests selections after entering some text
-        $("#subjectsInput").click();
-        $("#subjectsInput").setValue("English").pressEnter();
-        $("#subjectsInput").click();
-        $("#subjectsInput").setValue("Computer Science").pressEnter();
-
-        //Checks the boxes for hobbies
-        $(byText("Sports")).click();
-        $(byText("Music")).click();
-
-        //Not sure whether this works for a real file upload, especially a large one
-        $("#uploadPicture").uploadFromClasspath("SampleImage.png");
-
-        //Multi-line text box
-        $("#currentAddress").setValue("35, Current Street, \nCurrent Country"); //multi-line = \n
-
-        //Selects values from two drop-down lists
-        $(byText("Select State")).click();
-        $(byText("Rajasthan")).click();
-        $(byText("Select City")).click();
-        $(byText("Jaiselmer")).click();
-
-        //Submits the form
-        $("#submit").click();
-
-        //Checks the final results in the table
-        $(".table-responsive").shouldHave(text("John"));
-        $(".table-responsive").shouldHave(text("Doe"));
-        $(".table-responsive").shouldHave(text("john.doe@example.com"));
-        $(".table-responsive").shouldHave(text("Male"));
-        $(".table-responsive").shouldHave(text("4959999999"));
-        $(".table-responsive").shouldHave(text("15 August,1985"));
-        $(".table-responsive").shouldHave(text("English"));
-        $(".table-responsive").shouldHave(text("Computer Science"));
-        $(".table-responsive").shouldHave(text("Sports"));
-        $(".table-responsive").shouldHave(text("Music"));
-        $(".table-responsive").shouldHave(text("SampleImage.png"));
-        $(".table-responsive").shouldHave(text("35, Current Street, \nCurrent Country"));
-        $(".table-responsive").shouldHave(text("Rajasthan"));
-        $(".table-responsive").shouldHave(text("Jaiselmer"));
-
+        registrationPage.openPage()
+                .setFirstName("John")
+                .setLastName("Doe")
+                .setEmail("john.doe@example.com")
+                .setMaleGender()
+                .setPhoneNumber("4959999999")
+                .setBirthDate("1985", "August")
+                .setSubject("English")
+                .setSubject("Computer Science")
+                .setHobbySports()
+                .setHobbyMusic()
+                .uploadPicture("SampleImage.png")
+                .setAddress("35, Current Street, \nCurrent Country")//multi-line = \n
+                .setState("Rajasthan")
+                .setCity("Jaiselmer")
+                .submitForm();
+        registrationPage.checkTableResults("John")
+                .checkTableResults("Doe")
+                .checkTableResults("john.doe@example.com")
+                .checkTableResults("Male")
+                .checkTableResults("4959999999")
+                .checkTableResults("15 August,1985")
+                .checkTableResults("English")
+                .checkTableResults("Computer Science")
+                .checkTableResults("Sports")
+                .checkTableResults("Music")
+                .checkTableResults("SampleImage.png")
+                .checkTableResults("35, Current Street, \nCurrent Country")
+                .checkTableResults("Rajasthan")
+                .checkTableResults("Jaiselmer");
     }
 
     @Test
-    void fillRequiredFieldsTest() {
-        open("/automation-practice-form");
-        //For classes, use a dot. For ids, use #.
-
-        $("#firstName").setValue("John");
-
-        $("#lastName").setValue("Doe");
-
-        $(byText("Male")).click();
-
-        $("#userNumber").setValue("4959999999");
-
-        //Submits the form
-        $("#submit").click();
-
-        //Checks the final results in the table
-        $(".table-responsive").shouldHave(text("John"));
-        $(".table-responsive").shouldHave(text("Doe"));
-        $(".table-responsive").shouldHave(text("Male"));
-        $(".table-responsive").shouldHave(text("4959999999"));
+    void fillRequiredFieldsTest () {
+        registrationPage.openPage()
+                .setFirstName("John")
+                .setLastName("Doe")
+                .setMaleGender()
+                .setPhoneNumber("4959999999")
+                .submitForm();
+        registrationPage.checkTableResults("John")
+                .checkTableResults("Doe")
+                .checkTableResults("Male")
+                .checkTableResults("4959999999");
     }
 
     @Test
     void submitBlankFormNTest() {
-        open("/automation-practice-form");
-        //For classes, use a dot. For ids, use #.
-
-        $("#firstName").shouldHave(attribute("required"));
-        $("#lastName").shouldHave(attribute("required"));
-        $(byName("gender")).shouldHave(attribute("required"));
-        $("#userNumber").shouldHave(attribute("required"));
-
-        //Submits the form
-        $("#submit").click();
-
-        $("#userForm").shouldHave(attribute("class", "was-validated"));
+        registrationPage.openPage()
+                .requiredAttributeChecker()
+                .submitForm();
+        registrationPage.checkUserFormIsValidated();
     }
-
-
-
-
-
-
 }
