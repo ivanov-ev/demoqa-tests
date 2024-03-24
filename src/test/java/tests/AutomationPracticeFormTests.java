@@ -4,7 +4,9 @@ import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selectors.byName;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
@@ -99,4 +101,49 @@ public class AutomationPracticeFormTests {
         $(".table-responsive").shouldHave(text("Jaiselmer"));
 
     }
+
+    @Test
+    void fillRequiredFieldsTest() {
+        open("/automation-practice-form");
+        //For classes, use a dot. For ids, use #.
+
+        $("#firstName").setValue("John");
+
+        $("#lastName").setValue("Doe");
+
+        $(byText("Male")).click();
+
+        $("#userNumber").setValue("4959999999");
+
+        //Submits the form
+        $("#submit").click();
+
+        //Checks the final results in the table
+        $(".table-responsive").shouldHave(text("John"));
+        $(".table-responsive").shouldHave(text("Doe"));
+        $(".table-responsive").shouldHave(text("Male"));
+        $(".table-responsive").shouldHave(text("4959999999"));
+    }
+
+    @Test
+    void submitBlankFormNTest() {
+        open("/automation-practice-form");
+        //For classes, use a dot. For ids, use #.
+
+        $("#firstName").shouldHave(attribute("required"));
+        $("#lastName").shouldHave(attribute("required"));
+        $(byName("gender")).shouldHave(attribute("required"));
+        $("#userNumber").shouldHave(attribute("required"));
+
+        //Submits the form
+        $("#submit").click();
+
+        $("#userForm").shouldHave(attribute("class", "was-validated"));
+    }
+
+
+
+
+
+
 }
