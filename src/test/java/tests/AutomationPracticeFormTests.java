@@ -18,13 +18,13 @@ public class AutomationPracticeFormTests extends TestBase {
                 .setFirstName("John")
                 .setLastName("Doe")
                 .setEmail("john.doe@example.com")
-                .setMaleGender()
+                .setGender("Male")
                 .setPhoneNumber("4959999999")
                 .setBirthDate("1985", "August")
                 .setSubject("English")
                 .setSubject("Computer Science")
-                .setHobbySports()
-                .setHobbyMusic()
+                .setHobby("Sports")
+                .setHobby("Music")
                 .uploadPicture("SampleImage.png")
                 .setAddress("35, Current Street, \nCurrent Country")//multi-line = \n
                 .setState("Rajasthan")
@@ -51,7 +51,7 @@ public class AutomationPracticeFormTests extends TestBase {
         registrationPage.openPage()
                 .setFirstName("John")
                 .setLastName("Doe")
-                .setMaleGender()
+                .setGender("Male")
                 .setPhoneNumber("4959999999")
                 .submitForm();
         registrationPage.checkTableResults("John")
@@ -63,8 +63,7 @@ public class AutomationPracticeFormTests extends TestBase {
     @Test
     void submitBlankFormNTest() {
         registrationPage.openPage()
-                .requiredAttributeChecker()
                 .submitForm();
-        registrationPage.checkUserFormIsValidated();
+        registrationPage.checkFormValidation();
     }
 }

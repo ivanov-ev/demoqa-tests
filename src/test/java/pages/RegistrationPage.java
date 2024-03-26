@@ -16,18 +16,15 @@ import static com.codeborne.selenide.Selenide.$;
 public class RegistrationPage {
 
     private final SelenideElement userForm = $("#userForm");
+    private final String isValidated = "was-validated"; //UserForm receives the "was-validated" attribute after submission
     private final SelenideElement firstNameInput = $("#firstName");
     private final SelenideElement lastNameInput = $("#lastName");
     private final SelenideElement emailInput = $("#userEmail");
-    private final SelenideElement maleGenderInput = $(byText("Male"));
-    private final SelenideElement femaleGenderInput = $(byText("Female"));
+    private final SelenideElement genderInput = $("#genterWrapper");
     private final SelenideElement phoneNumberInput = $("#userNumber");
     private final SelenideElement calendarInput = $("#dateOfBirthInput");
     private final SelenideElement subjectInput = $("#subjectsInput");
-    private final SelenideElement
-            hobbySportsInput = $(byText("Sports")),
-            hobbyReadingInput = $(byText("Reading")),
-            hobbyMusicInput = $(byText("Music"));
+    private final SelenideElement hobbyInput = $("#hobbiesWrapper");
     private final SelenideElement uploadPictureInput = $("#uploadPicture");
     private final SelenideElement addressInput = $("#currentAddress");
     private final SelenideElement stateInput = $(byText("Select State"));
@@ -41,6 +38,8 @@ public class RegistrationPage {
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
 		return this;
     }
 
@@ -57,13 +56,8 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setMaleGender () {
-        maleGenderInput.click();
-        return this;
-    }
-
-    public RegistrationPage setFemaleGender () {
-        femaleGenderInput.click();
+    public RegistrationPage setGender (String gender) {
+        genderInput.$(byText(gender)).click();
         return this;
     }
 
@@ -85,18 +79,8 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage setHobbySports () {
-        hobbySportsInput.click();
-        return this;
-    }
-
-    public RegistrationPage setHobbyReading () {
-        hobbyReadingInput.click();
-        return this;
-    }
-
-    public RegistrationPage setHobbyMusic () {
-        hobbyMusicInput.click();
+    public RegistrationPage setHobby (String hobby) {
+        hobbyInput.$(byText(hobby)).click();
         return this;
     }
 
@@ -133,16 +117,8 @@ public class RegistrationPage {
         return this;
     }
 
-    public RegistrationPage requiredAttributeChecker() {
-        firstNameInput.shouldHave(attribute("required"));
-        lastNameInput.shouldHave(attribute("required"));
-        maleGenderInput.preceding(0).shouldHave(attribute("required"));
-        phoneNumberInput.shouldHave(attribute("required"));
-        return this;
-    }
-
-    public RegistrationPage checkUserFormIsValidated() {
-        userForm.shouldHave(attribute("class", "was-validated")); //the form receives this attribute after submitting the form
-        return this;
+    public RegistrationPage checkFormValidation () {
+        userForm.shouldHave(attribute("class", isValidated));
+        return null;
     }
 }
