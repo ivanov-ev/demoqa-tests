@@ -119,6 +119,6 @@ public class RegistrationPage {
 
     public RegistrationPage checkFormValidation () {
         userForm.shouldHave(attribute("class", isValidated));
-        return null;
+        return this;
     }
 }
