@@ -13,7 +13,7 @@ public class AutomationPracticeFormTests extends TestBase {
 
     String firstName = getRandomFirstNameFaker(),
             lastName = getRandomLastNameFaker(),
-            email = getRandomEmailFaker(),
+            email = getRandomEmailFaker(firstName, lastName),
             gender = getRandomGenderFaker(),
             phone = getRandomPhoneFaker(),
             birthYear = getRandomYearFaker(),

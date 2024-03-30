@@ -3,6 +3,7 @@ package utils;
 import com.github.javafaker.Faker;
 import java.security.SecureRandom;
 import java.text.DateFormatSymbols;
+import java.text.Normalizer;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
@@ -10,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RandomUtils {
 
     //GENERATE RANDOM DATA USING THE JAVA FAKER LIBRARY
-     static Faker faker = new Faker(new Locale.Builder() //e.g. for language-specific user names, addresses, etc.
+     private static final Faker faker = new Faker(new Locale.Builder() //e.g. for language-specific user names, addresses, etc.
             .setLanguage("es")
             .setRegion("ES")
             .build()
@@ -24,8 +25,11 @@ public class RandomUtils {
         return faker.name().lastName();
     }
 
-    public static String getRandomEmailFaker () {
-        return faker.internet().safeEmailAddress();
+    public static String getRandomEmailFaker (String firstName, String lastName) {
+        String localPart = firstName + "-" + lastName;//E.g. john-doe@example.com
+        localPart = Normalizer.normalize(localPart, Normalizer.Form.NFD).replaceAll("\\p{M}", "");//This code removes diacritics because some names may contain them in Spanish, French, etc.
+        localPart = localPart.replaceAll("\\s", "").toLowerCase();//This code removes whitespaces for names consisting of two words
+        return faker.internet().safeEmailAddress(localPart);
     }
 
     public static String getRandomGenderFaker () {
