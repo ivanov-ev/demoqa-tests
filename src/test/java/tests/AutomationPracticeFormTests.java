@@ -1,7 +1,9 @@
 package tests;
 
+import org.junit.jupiter.api.Assertions;
 import pages.RegistrationPage;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+import pages.components.TableComponent;
 
 import static utils.RandomUtils.*;
 
@@ -27,6 +29,8 @@ public class AutomationPracticeFormTests extends TestBase {
 
     RegistrationPage registrationPage = new RegistrationPage();
 
+    TableComponent tableComponent = new TableComponent();
+
     //A success way to fill out all the fields on the automation-practice-form
     @Test
     void fillFormTest() {
@@ -44,18 +48,18 @@ public class AutomationPracticeFormTests extends TestBase {
                 .setState(state)
                 .setCity(city)
                 .submitForm();
-        registrationPage.checkTableResults(firstName)
-                .checkTableResults(lastName)
-                .checkTableResults(email)
-                .checkTableResults(gender)
-                .checkTableResults(phone)
-                .checkTableResults("15 " + birthMonth + "," + birthYear) //concat string
-                .checkTableResults(subject)
-                .checkTableResults(hobby)
-                .checkTableResults(picture)
-                .checkTableResults(address)
-                .checkTableResults(state)
-                .checkTableResults(city);
+        tableComponent.checkResultsInTable(firstName)
+                .checkResultsInTable(lastName)
+                .checkResultsInTable(email)
+                .checkResultsInTable(gender)
+                .checkResultsInTable(phone)
+                .checkResultsInTable("15 " + birthMonth + "," + birthYear) //concat string
+                .checkResultsInTable(subject)
+                .checkResultsInTable(hobby)
+                .checkResultsInTable(picture)
+                .checkResultsInTable(address)
+                .checkResultsInTable(state)
+                .checkResultsInTable(city);
     }
 
     @Test
@@ -66,16 +70,17 @@ public class AutomationPracticeFormTests extends TestBase {
                 .setGender(gender)
                 .setPhoneNumber(phone)
                 .submitForm();
-        registrationPage.checkTableResults(firstName)
-                .checkTableResults(lastName)
-                .checkTableResults(gender)
-                .checkTableResults(phone);
+        tableComponent.checkResultsInTable(firstName)
+                .checkResultsInTable(lastName)
+                .checkResultsInTable(gender)
+                .checkResultsInTable(phone);
     }
 
     @Test
     void submitBlankFormNTest() {
         registrationPage.openPage()
                 .submitForm();
-        registrationPage.checkFormValidation();
+        Assertions.assertFalse(tableComponent.isTablePresent());
+        Assertions.assertTrue(tableComponent.isValidationAttributePresent());
     }
 }

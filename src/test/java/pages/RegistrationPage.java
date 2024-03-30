@@ -4,7 +4,6 @@ import pages.components.*;
 import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponent;
 
-import static com.codeborne.selenide.Condition.attribute;
 import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 import static com.codeborne.selenide.Selenide.$;
@@ -15,8 +14,6 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class RegistrationPage {
 
-    private final SelenideElement userForm = $("#userForm");
-    private final String isValidated = "was-validated"; //UserForm receives the "was-validated" attribute after submission
     private final SelenideElement firstNameInput = $("#firstName");
     private final SelenideElement lastNameInput = $("#lastName");
     private final SelenideElement emailInput = $("#userEmail");
@@ -33,8 +30,6 @@ public class RegistrationPage {
 
     //Init components
     CalendarComponent calendarComponent = new CalendarComponent();
-    TableComponent tableComponent = new TableComponent();
-
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
@@ -109,16 +104,6 @@ public class RegistrationPage {
 
     public RegistrationPage submitForm () {
         submitButton.click();
-        return this;
-    }
-
-    public RegistrationPage checkTableResults (String value) {
-        tableComponent.checkTable(value);
-        return this;
-    }
-
-    public RegistrationPage checkFormValidation () {
-        userForm.shouldHave(attribute("class", isValidated));
         return this;
     }
 }
