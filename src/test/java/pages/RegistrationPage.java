@@ -1,6 +1,5 @@
 package pages;
 
-import pages.components.*;
 import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponent;
 
@@ -33,76 +32,83 @@ public class RegistrationPage {
 
     public RegistrationPage openPage() {
         open("/automation-practice-form");
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
-		return this;
+        removeBanner();
+        return this;
     }
 
-    public RegistrationPage setFirstName (String value) {
+    public RegistrationPage removeBanner() {
+        executeJavaScript("$('#fixedban').remove()");
+        executeJavaScript("$('footer').remove()");
+        return this;
+    }
+
+    public RegistrationPage setFirstName(String value) {
         firstNameInput.setValue(value);
         return this;
     }
-    public RegistrationPage setLastName (String value) {
+
+    public RegistrationPage setLastName(String value) {
         lastNameInput.setValue(value);
         return this;
     }
-    public RegistrationPage setEmail (String value) {
+
+    public RegistrationPage setEmail(String value) {
         emailInput.setValue(value);
         return this;
     }
 
-    public RegistrationPage setGender (String gender) {
+    public RegistrationPage setGender(String gender) {
         genderInput.$(byText(gender)).click();
         return this;
     }
 
-    public RegistrationPage setPhoneNumber (String value) {
+    public RegistrationPage setPhoneNumber(String value) {
         phoneNumberInput.setValue(value);
         return this;
     }
 
-    public RegistrationPage setBirthDate (String year, String month) {
+    public RegistrationPage setBirthDate(String year, String month, String day) {
         //Opens the date picker
         calendarInput.click();
-        calendarComponent.setDate(year, month);
+        calendarComponent.setDate(year, month, day);
         return this;
     }
 
-    public RegistrationPage setSubject (String subject) {
+    public RegistrationPage setSubject(String subject) {
         subjectInput.click();
         subjectInput.setValue(subject).pressEnter();
         return this;
     }
 
-    public RegistrationPage setHobby (String hobby) {
+    public RegistrationPage setHobby(String hobby) {
         hobbyInput.$(byText(hobby)).click();
         return this;
     }
 
     //Not sure whether this works for a real file upload, especially a large one
-    public RegistrationPage uploadPicture (String path) {
+    public RegistrationPage uploadPicture(String path) {
         uploadPictureInput.uploadFromClasspath(path);
         return this;
     }
 
-    public RegistrationPage setAddress (String value) {
+    public RegistrationPage setAddress(String value) {
         addressInput.setValue(value);
         return this;
     }
 
-    public RegistrationPage setState (String stateName) {
+    public RegistrationPage setState(String stateName) {
         stateInput.click();
         $(byText(stateName)).click();
         return this;
     }
 
-    public RegistrationPage setCity (String cityName) {
+    public RegistrationPage setCity(String cityName) {
         cityInput.click();
         $(byText(cityName)).click();
         return this;
     }
 
-    public RegistrationPage submitForm () {
+    public RegistrationPage submitForm() {
         submitButton.click();
         return this;
     }

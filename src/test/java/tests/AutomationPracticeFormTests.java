@@ -20,6 +20,7 @@ public class AutomationPracticeFormTests extends TestBase {
             phone = getRandomPhoneFaker(),
             birthYear = getRandomYearFaker(),
             birthMonth = getRandomMonthFaker(),
+            birthDay = getRandomDayFaker(birthYear, birthMonth),
             subject = getRandomSubjectFaker(),
             hobby = getRandomHobbyFaker(),
             picture = getRandomPictureFaker(),
@@ -31,7 +32,7 @@ public class AutomationPracticeFormTests extends TestBase {
 
     TableComponent tableComponent = new TableComponent();
 
-    //A success way to fill out all the fields on the automation-practice-form
+    //Fill out all the fields of the automation-practice-form
     @Test
     void fillFormTest() {
         registrationPage.openPage()
@@ -40,7 +41,7 @@ public class AutomationPracticeFormTests extends TestBase {
                 .setEmail(email)
                 .setGender(gender)
                 .setPhoneNumber(phone)
-                .setBirthDate(birthYear, birthMonth)
+                .setBirthDate(birthYear, birthMonth, birthDay)
                 .setSubject(subject)
                 .setHobby(hobby)
                 .uploadPicture(picture)
@@ -53,7 +54,7 @@ public class AutomationPracticeFormTests extends TestBase {
                 .checkResultsInTable(email)
                 .checkResultsInTable(gender)
                 .checkResultsInTable(phone)
-                .checkResultsInTable("15 " + birthMonth + "," + birthYear) //concat string
+                .checkResultsInTable(birthDay + " " + birthMonth + "," + birthYear)
                 .checkResultsInTable(subject)
                 .checkResultsInTable(hobby)
                 .checkResultsInTable(picture)

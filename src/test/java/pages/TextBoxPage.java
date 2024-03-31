@@ -31,44 +31,47 @@ public class TextBoxPage {
         return this;
     }
 
-    public TextBoxPage setUserName (String value) {
+    public TextBoxPage setUserName(String value) {
         userNameInput.setValue(value);
         return this;
     }
 
-    public TextBoxPage setUserEmail (String value) {
+    public TextBoxPage setUserEmail(String value) {
         userEmailInput.setValue(value);
         return this;
     }
 
-    public TextBoxPage setCurrentAddress (String value) {
+    public TextBoxPage setCurrentAddress(String value) {
         currentAddressInput.setValue(value);
         return this;
     }
 
-    public TextBoxPage setPermanentAddress (String value) {
+    public TextBoxPage setPermanentAddress(String value) {
         permanentAddressInput.setValue(value);
         return this;
     }
 
-    public TextBoxPage submitForm () {
+    public TextBoxPage submitForm() {
         submitButton.click();
         return this;
     }
 
-    public TextBoxPage checkName (String value) {
+    public TextBoxPage checkName(String value) {
         outputName.shouldHave(text(value));
         return this;
     }
-    public TextBoxPage checkEmail (String value) {
+
+    public TextBoxPage checkEmail(String value) {
         outputEmail.shouldHave(text(value));
         return this;
     }
-    public TextBoxPage checkCurrentAddress (String value) {
+
+    public TextBoxPage checkCurrentAddress(String value) {
         outputCurrentAddress.shouldHave(text(value));
         return this;
     }
-    public TextBoxPage checkPermanentAddress (String value) {
+
+    public TextBoxPage checkPermanentAddress(String value) {
         outputPermanentAddress.shouldHave(text(value));
         return this;
     }

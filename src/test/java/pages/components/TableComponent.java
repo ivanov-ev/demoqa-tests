@@ -9,19 +9,19 @@ import static com.codeborne.selenide.Selenide.*;
 public class TableComponent {
     private final SelenideElement table = $(".table-responsive");
     private final SelenideElement userForm = $("#userForm");
-    private final String isValidated = "was-validated"; //UserForm receives the "was-validated" attribute after submission
+    private final String isValidated = "was-validated";
+    //UserForm receives the "was-validated" attribute after submission
 
-    public TableComponent checkResultsInTable (String value) {
+    public TableComponent checkResultsInTable(String value) {
         table.shouldHave(text(value));
         return this;
     }
 
-    public boolean isTablePresent () {
+    public boolean isTablePresent() {
         return table.exists();
     }
 
-    public boolean isValidationAttributePresent () {
+    public boolean isValidationAttributePresent() {
         return userForm.has(attribute("class", isValidated));
     }
-
 }
