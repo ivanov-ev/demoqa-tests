@@ -1,5 +1,7 @@
 package tests;
 
+import helpers.Attach;
+import io.qameta.allure.*;
 import org.junit.jupiter.api.Assertions;
 import pages.RegistrationPage;
 import org.junit.jupiter.api.*;
@@ -11,7 +13,22 @@ import static utils.RandomUtils.*;
 //TESTS FOR https://demoqa.com/automation-practice-form
 // ====================================================
 
+@Tag("automation_practice_form")
+@Feature("demoqa")
+@Story("automation-practice-form")
+@Owner("ivanov-ev")
+@Severity(SeverityLevel.NORMAL)
+@Link(name = "https://demoqa.com", url = "https://demoqa.com/automation-practice-form")
+@DisplayName("Automation Practice Form Tests")
 public class AutomationPracticeFormTests extends TestBase {
+
+    @AfterEach
+    void addAttachments() {
+        Attach.screenshotAs("Screenshot");
+        Attach.addVideo();
+        Attach.browserConsoleLogs();
+        Attach.pageSource();
+    }
 
     String firstName = getRandomFirstNameFaker(),
             lastName = getRandomLastNameFaker(),
@@ -34,6 +51,7 @@ public class AutomationPracticeFormTests extends TestBase {
 
     //Fill out all the fields of the automation-practice-form
     @Test
+    @DisplayName("Fill out all the fields")
     void fillFormTest() {
         registrationPage.openPage()
                 .setFirstName(firstName)
@@ -64,6 +82,7 @@ public class AutomationPracticeFormTests extends TestBase {
     }
 
     @Test
+    @DisplayName("Fill out only the required fields")
     void fillRequiredFieldsTest() {
         registrationPage.openPage()
                 .setFirstName(firstName)
@@ -78,6 +97,7 @@ public class AutomationPracticeFormTests extends TestBase {
     }
 
     @Test
+    @DisplayName("Submit the blank form")
     void submitBlankFormNTest() {
         registrationPage.openPage()
                 .submitForm();
