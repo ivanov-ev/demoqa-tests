@@ -1,11 +1,14 @@
 package helpers;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.Selenide;
 import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
 import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
@@ -47,7 +50,13 @@ public class Attach {
     }
 
     public static URL getVideoUrl() {
-        String videoUrl = "https://" + System.getProperty("remote") + "/video/" + sessionId() + ".mp4";
+        URI uri = null;
+        String host = null;
+        try {
+            uri = new URI(Configuration.remote);
+            host = uri.getHost();
+        } catch (Exception e) {System.out.println(e.getMessage());}
+        String videoUrl = "https://" + host + "/video/" + sessionId() + ".mp4";
         try {
             return new URL(videoUrl);
         } catch (MalformedURLException e) {

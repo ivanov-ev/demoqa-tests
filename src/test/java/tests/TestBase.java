@@ -1,6 +1,7 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.logevents.SelenideLog;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -24,7 +25,8 @@ public class TestBase {
 
         Configuration.timeout = 5000; //5 sec; default is 4 sec
 
-        Configuration.remote = "https://user1:1234@" + System.getProperty("remote") + "/wd/hub";
+        Configuration.remote = "https://user1:1234@" + Configuration.remote + "/wd/hub";
+
 
         Configuration.webdriverLogsEnabled = true;
         DesiredCapabilities capabilities = new DesiredCapabilities();
