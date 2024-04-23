@@ -22,12 +22,6 @@ public class TestBase {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
 
-        Configuration.browser = System.getProperty("browser");
-
-        Configuration.browserSize = System.getProperty("browserSize");
-
-        Configuration.browserVersion = System.getProperty("browserVersion");
-
         Configuration.timeout = 5000; //5 sec; default is 4 sec
 
         Configuration.remote = "https://user1:1234@" + System.getProperty("remote") + "/wd/hub";
