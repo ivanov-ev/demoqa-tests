@@ -22,17 +22,17 @@ public class TestBase {
         Configuration.baseUrl = "https://demoqa.com";
         Configuration.pageLoadStrategy = "eager";
 
-        //Configuration.browser = "Chrome";
         System.setProperty("browser", "chrome");
         Configuration.browser = System.getProperty("browser");
 
-        //Configuration.browserSize = "1600x1000";
         System.setProperty("browserSize", "1000x1000");
         Configuration.browserSize = System.getProperty("browserSize");
 
+        System.setProperty("browserVersion", "122.0");
+        Configuration.browserVersion = System.getProperty("browserVersion");
+
         Configuration.timeout = 5000; //5 sec; default is 4 sec
 
-        //Configuration.remote = "https://user1:1234@selenoid.autotests.cloud/wd/hub";
         System.setProperty("remote", "selenoid.example.com");
         Configuration.remote = "https://user1:1234@" + System.getProperty("remote") + "/wd/hub";
 
