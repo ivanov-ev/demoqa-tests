@@ -41,6 +41,9 @@ dependencies {
 }
 
 tasks.withType(Test) {
+    systemProperties(System.getProperties())
+    testLogging.showStandardStreams = true
+    testLogging.exceptionFormat = 'full'
     useJUnitPlatform()
 }
 
@@ -51,9 +54,6 @@ task simple_test(type: Test) {
 }
 
 task automation_practice_form_test(type: Test) {
-    systemProperties(System.getProperties())
-    testLogging.showStandardStreams = true
-    testLogging.exceptionFormat = 'full'
     useJUnitPlatform {
         includeTags("automation_practice_form")
     }
