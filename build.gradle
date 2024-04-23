@@ -40,18 +40,10 @@ dependencies {
     )
 }
 
-test {
-    options {
-        systemProperties(System.getProperties())
-    }
-    testLogging.showStandardStreams = true
-    testLogging.exceptionFormat = 'full'
-    useJUnitPlatform()
-}
-
 tasks.withType(Test) {
     systemProperties(System.getProperties())
-
+    testLogging.showStandardStreams = true
+    testLogging.exceptionFormat = 'full'
     useJUnitPlatform()
 
     testLogging {
