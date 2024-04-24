@@ -2,6 +2,8 @@ package pages;
 
 import com.codeborne.selenide.SelenideElement;
 import io.qameta.allure.Step;
+import org.openqa.selenium.remote.LocalFileDetector;
+import org.openqa.selenium.remote.RemoteWebElement;
 import pages.components.CalendarComponent;
 
 import static com.codeborne.selenide.Selectors.*;
@@ -100,6 +102,7 @@ public class RegistrationPage {
     //Not sure whether this works for a real file upload, especially a large one
     @Step("Upload the picture")
     public RegistrationPage uploadPicture(String path) {
+        ((RemoteWebElement)uploadPictureInput).setFileDetector(new LocalFileDetector());
         uploadPictureInput.uploadFromClasspath(path);
         return this;
     }
