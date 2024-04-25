@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Map;
-import java.util.logging.Level;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 
@@ -24,8 +23,6 @@ public class TestBase {
         if (Configuration.remote != null) {
             Configuration.remote = "https://user1:1234@" + Configuration.remote + "/wd/hub";
         }
-
-        Configuration.browser = "firefox";
 
         Configuration.webdriverLogsEnabled = true;
         DesiredCapabilities capabilities = new DesiredCapabilities();
