@@ -1,11 +1,13 @@
 package tests;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import pages.TextBoxPage;
 
 // ====================================
 //TESTS FOR https://demoqa.com/text-box
 // ====================================
+@Tag("text_box_tests")
 public class TextBoxTests extends TestBase {
 
     TextBoxPage textBoxPage = new TextBoxPage();

@@ -47,9 +47,9 @@ tasks.withType(Test) {
     useJUnitPlatform()
 }
 
-task simple_test(type: Test) {
+task text_box_tests(type: Test) {
     useJUnitPlatform {
-        includeTags("simple")
+        includeTags("text_box_tests")
     }
 }
 

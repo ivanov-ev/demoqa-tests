@@ -1,6 +1,5 @@
 package tests;
 
-import helpers.Attach;
 import io.qameta.allure.*;
 import org.junit.jupiter.api.Assertions;
 import pages.RegistrationPage;
@@ -22,13 +21,6 @@ import static utils.RandomUtils.*;
 @DisplayName("Automation Practice Form Tests")
 public class AutomationPracticeFormTests extends TestBase {
 
-    @AfterEach
-    void addAttachments() {
-        Attach.screenshotAs("Screenshot");
-        Attach.addVideo();
-        Attach.browserConsoleLogs();
-        Attach.pageSource();
-    }
 
     String firstName = getRandomFirstNameFaker(),
             lastName = getRandomLastNameFaker(),

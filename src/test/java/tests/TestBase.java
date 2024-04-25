@@ -1,13 +1,9 @@
 package tests;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.logevents.SelenideLog;
+import helpers.Attach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.openqa.selenium.logging.LogType;
-import org.openqa.selenium.logging.LoggingPreferences;
-import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.util.Map;
@@ -25,8 +21,11 @@ public class TestBase {
 
         Configuration.timeout = 5000; //5 sec; default is 4 sec
 
-        Configuration.remote = "https://user1:1234@" + Configuration.remote + "/wd/hub";
+        if (Configuration.remote != null) {
+            Configuration.remote = "https://user1:1234@" + Configuration.remote + "/wd/hub";
+        }
 
+        Configuration.browser = "firefox";
 
         Configuration.webdriverLogsEnabled = true;
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -37,8 +36,16 @@ public class TestBase {
         Configuration.browserCapabilities = capabilities;
     }
 
+    void addAttachments() {
+        Attach.screenshotAs("Screenshot");
+        Attach.addVideo();
+        Attach.browserConsoleLogs();
+        Attach.pageSource();
+    }
+
     @AfterEach
     void tearDown() {
+        addAttachments();
         closeWebDriver();
     }
 }

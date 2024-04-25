@@ -42,6 +42,13 @@ public class Attach {
                     String.join("\n", Selenide.getWebDriverLogs(BROWSER))
             );
         }
+        else {
+            attachAsText("Browser console logs",
+                    String.join("\n",
+                            "Attention! Browser console logs cannot be collected in Firefox." +
+                            "\nPlease use Chrome if logs are required")
+            );
+        }
     }
 
     @Attachment(value = "Video", type = "text/html", fileExtension = ".html")

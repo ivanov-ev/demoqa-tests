@@ -54,7 +54,7 @@ public class RandomUtils {
     }
 
     public static String getRandomDayFaker(String year, String month) {
-        int monthNumber = -1;
+        int monthNumber = 1;
         switch (month) {
             case "January" -> monthNumber = 1;
             case "February" -> monthNumber = 2;
